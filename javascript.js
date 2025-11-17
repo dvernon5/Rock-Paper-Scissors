@@ -27,13 +27,21 @@ function determineWinner(humanChoice, computerChoice) {
     return "computer";
 }
 
-function runGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    let replayGame;
-    while (1) {
-
+function playRound() {
+    let humanChoice = getHumanChoice();
+    let computerChoice = getComputerChoice();
+    const result = determineWinner(humanChoice, computerChoice);
+    if (result === "tie") {
+        alert("It's a tie");
+    } else if (result === "human") {
+        alert("You win this round");
+        return 1;
+    } else {
+        alert("Computer wins this round!");
+        return -1;  // Computer point
     }
+
+    return 0; // Tie 
 }
 
 function main() {
