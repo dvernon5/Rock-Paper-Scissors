@@ -14,6 +14,28 @@ function getHumanChoice() {
     return choice;
 }
 
+function determineWinner(humanChoice, computerChoice) {
+    if (humanChoice == computerChoice) { return "tie"; }
+    if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+        return "human";
+    }
+
+    return "computer";
+}
+
+function runGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+    let replayGame;
+    while (1) {
+
+    }
+}
+
 function main() {
     console.log(getComputerChoice());
     console.log(getHumanChoice());
