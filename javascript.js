@@ -44,9 +44,23 @@ function playRound() {
     return 0; // Tie 
 }
 
-function main() {
-    console.log(getComputerChoice());
-    console.log(getHumanChoice());
+export function runGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+    while (true) {
+        let winner = playRound();
+        if (winner === 1) { humanScore++; }
+        if (winner === -1) { computerScore++; }
+        console.log(`Score - You: ${ humanScore } | Computer: ${ computerScore }`);
+        const playAgain = prompt("Play another round? (yes/no)").toLowerCase();
+        if (!playAgain.startsWith('y')) {
+            break;
+        }
+    }
+    console.log(`\n=== FINAL SCORE ===`);
+    console.log(`You: ${ humanScore }`);
+    console.log(`Computer: ${ computerScore }`);
+    alert(`Game Over!\nFinal Score - You: ${ humanScore } | Computer: ${ computerScore }`);
 }
 
-main();
+runGame();
