@@ -13,3 +13,10 @@ function getHumanChoice() {
 
     return choice;
 }
+
+function main() {
+    console.log(getComputerChoice());
+    console.log(getHumanChoice());
+}
+
+main();
