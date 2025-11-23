@@ -1,17 +1,17 @@
+// DOM elements
+const buttons = document.querySelectorAll("button");
+const resultDiv = document.querySelector("#result");
+const scoreDiv = document.querySelector("#score");
+
+// Game state
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     const choice = ['rock', 'paper', 'scissors'];
     let randomIndex = Math.floor(Math.random() * 3);
 
     return choice[randomIndex];
-}
-
-function getHumanChoice() {
-    let choice = prompt("Please enter Rock, Paper, or Scissors").toLowerCase();
-    while (!["rock", "paper", "scissors"].includes(choice)) {
-        choice = prompt("Invalid selection. Please enter Rock, Paper, or Scissors").toLowerCase();
-    }
-
-    return choice;
 }
 
 function determineWinner(humanChoice, computerChoice) {
@@ -27,40 +27,35 @@ function determineWinner(humanChoice, computerChoice) {
     return "computer";
 }
 
-function playRound() {
-    let humanChoice = getHumanChoice();
+function playRound(humanChoice) {
     let computerChoice = getComputerChoice();
     const result = determineWinner(humanChoice, computerChoice);
+    let message = `You chose ${ humanChoice }. Computer chose ${ computerChoice }. `;
     if (result === "tie") {
-        alert("It's a tie");
+        message += "It's a tie!";
     } else if (result === "human") {
-        alert("You win this round");
-        return 1;
+        message += "You win this round!";
+        humanScore++;
     } else {
-        alert("Computer wins this round!");
-        return -1;  // Computer point
+        message += "Computer wins this round!";
+        computerScore++;
     }
 
-    return 0; // Tie 
-}
+    // Update DOM
+    resultDiv.textContent = message;
+    scoreDiv.textConent = scoreDiv.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`;
 
-export function runGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    while (true) {
-        let winner = playRound();
-        if (winner === 1) { humanScore++; }
-        if (winner === -1) { computerScore++; }
-        console.log(`Score - You: ${ humanScore } | Computer: ${ computerScore }`);
-        const playAgain = prompt("Play another round? (yes/no)").toLowerCase();
-        if (!playAgain.startsWith('y')) {
-            break;
-        }
+    // Declare overall winner at 5 points
+    if (humanScore === 5 || computerScore === 5) {
+        const finalMessage = humanScore === 5 ? "You" : "Computer";
+        resultDiv.textContent += `\n\n\n${ finalMessage } win the game!`;
+        buttons.forEach(button => button.disabled = true);
     }
-    console.log(`\n=== FINAL SCORE ===`);
-    console.log(`You: ${ humanScore }`);
-    console.log(`Computer: ${ computerScore }`);
-    alert(`Game Over!\nFinal Score - You: ${ humanScore } | Computer: ${ computerScore }`);
 }
 
-runGame();
+// Add click listeners to buttons
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        playRound(button.id);
+    });
+});
