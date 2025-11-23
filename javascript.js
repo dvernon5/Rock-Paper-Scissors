@@ -1,12 +1,3 @@
-// DOM elements
-const buttons = document.querySelectorAll("button");
-const resultDiv = document.querySelector("#result");
-const scoreDiv = document.querySelector("#score");
-
-// Game state
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
     const choice = ['rock', 'paper', 'scissors'];
     let randomIndex = Math.floor(Math.random() * 3);
@@ -27,6 +18,14 @@ function determineWinner(humanChoice, computerChoice) {
     return "computer";
 }
 
+// DOM elements
+const buttons = document.querySelectorAll("button");
+const resultDiv = document.querySelector("#result");
+const scoreDiv = document.querySelector("#score");
+
+// Game state
+let humanScore = 0;
+let computerScore = 0;
 function playRound(humanChoice) {
     let computerChoice = getComputerChoice();
     const result = determineWinner(humanChoice, computerChoice);
